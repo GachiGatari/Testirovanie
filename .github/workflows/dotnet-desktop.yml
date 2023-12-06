@@ -17,7 +17,7 @@ jobs:
     runs-on: windows-latest  
 
     env:
-      DOTNET_VERSION: '5.0.0'                  
+      DOTNET_VERSION: '6.0.401'                 
 
     steps:
     - uses: actions/checkout@v3
