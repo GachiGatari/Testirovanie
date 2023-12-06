@@ -17,18 +17,20 @@ jobs:
     runs-on: windows-latest  
 
     env:
-      Solution_Name: Testirovanie                         
+      DOTNET_VERSION: '6.0.401'                  
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-
-    - name: Install .NET Core
+    - uses: actions/checkout@v3
+    - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Execute unit tests
-      run: dotnet test
+    - name: Install dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
